@@ -62,6 +62,7 @@ if __name__ == "__main__":
         print("connect is: ", connectDobotCommand.get_value())
         
         while True:
+            
             if connectDobotCommand.get_value() == True:
 
                 #Connect Dobot
@@ -81,29 +82,13 @@ if __name__ == "__main__":
                     dType.SetQueuedCmdStartExec(api)
                     dType.SetQueuedCmdStopExec(api)
 
-                else:
+            else:
                     
-                    #Disconnect Dobot
-                    dType.DisconnectDobot(api)
+                #Disconnect Dobot
+                dType.DisconnectDobot(api)
 
     finally:
         client.disconnect()
 
-
-if connectDobot == True:
-    state = dType.ConnectDobot(api, "", 115200)[0]
-    print("Connect status:",CON_STR[state])
-
-    if (state == dType.DobotConnect.DobotConnect_NoError):
-        #Clean Command Queued
-        dType.SetQueuedCmdClear(api)
-
-        
-        #Wait for Executing Last Command
-        # while lastIndex > dType.GetQueuedCmdCurrentIndex(api)[0]:
-        #     dType.dSleep(100)
-
-        #Stop to Execute Command Queued
-        dType.SetQueuedCmdStopExec(api)
 
     

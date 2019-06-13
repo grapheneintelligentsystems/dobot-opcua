@@ -56,4 +56,4 @@ if (state == dType.DobotConnect.DobotConnect_NoError):
     dType.SetQueuedCmdStopExec(api)
 
 #Disconnect Dobot
-dType.DisconnectDobot(api)
+# dType.DisconnectDobot(api)

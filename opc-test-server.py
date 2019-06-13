@@ -2,9 +2,10 @@ import sys
 sys.path.insert(0, "..")
 import time
 
-
 from opcua import ua, Server
 
+import threading
+import DobotDllType as dType
 
 if __name__ == "__main__":
 
@@ -27,12 +28,13 @@ if __name__ == "__main__":
     # starting server
     server.start()
     
-    try:
-        count = 0
-        while True:
-            time.sleep(1)
-            count += 0.1
-            myvar.set_value(count)
-    finally:
-        #close connection, remove subcsriptions, etc
-        server.stop()
+    # try:
+    #     count = 0
+    #     while True:
+    #         time.sleep(1)
+    #         count += 0.1
+    #         myvar.set_value(count)
+    # finally:
+    #     #close connection, remove subcsriptions, etc
+    #     server.stop()
+# server.stop()

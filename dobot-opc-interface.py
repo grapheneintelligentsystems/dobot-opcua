@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, "..")
 import time
+import copy
 
 try:
     from IPython import embed
@@ -58,76 +59,26 @@ if __name__ == "__main__":
     # import the command list node from xml
     server.import_xml("dobot-node.xml")
 
-    # create the default event object
-    myevgen = server.get_event_generator()
-    myevgen.event.Severity = 300
+    # get the command node
+    objects = server.get_objects_node()
+
+    commandListNode = objects.get_child(["0:CommandList"])
+    connnectCommand = commandListNode.get_child(["0:Connect"])
+    homeCommand = commandListNode.get_child(["0:Home"])
 
     # starting server
     server.start()
     try:
+        handler = SubHandler()
+        sub = server.create_subscription(500, handler)
+        handleHome = sub.subscribe_data_change(homeCommand)
+        handleConnect = sub.subscribe_data_change(connnectCommand)
+
+        connectCopy = connnectCommand.get_value()
+        connectCopy = copy.copy(connectCopy)
+        connectCopy = True
+        connnectCommand.set_value(connectCopy)
+
         embed()
     finally:
         server.stop()
-
-
-############### Set up OPCUA command list #############################
-
-# commandList = server.nodes.objects.add_object(idx, "CommandList")
-
-# connectDobot = commandList.add_variable(idx, "ConnectDobot", True, ua.VariantType.Boolean)
-# connectDobot.set_writable()  
-
-# home = commandList.add_variable(idx, "Home", False, ua.VariantType.Boolean)
-# home.set_writable()   
-    
-
-############### Start the dobot client #############################
-
-# if __name__ == "__main__":
-
-#     client = Client("opc.tcp://localhost:4840/freeopcua/server/")
-    
-#     try:
-#         client.connect()
-
-#         root = client.get_root_node()
-#         print("Objects node is: ", root)
-#         print("Children of root are: ", root.get_children())
-
-#         # Getting a variable node using its browse path
-#         homeCommand = root.get_child(["0:Objects", "2:CommandList", "2:Home"])
-#         connectDobotCommand = root.get_child(["0:Objects", "2:CommandList", "2:ConnectDobot"])
-#         print("home is: ", homeCommand.get_value())
-#         print("connect is: ", connectDobotCommand.get_value())
-        
-#         while True:
-            
-#             if connectDobotCommand.get_value() == True:
-
-#                 #Connect Dobot
-#                 state = dType.ConnectDobot(api, "", 115200)[0]
-#                 print("Connect status:",CON_STR[state])
-
-#                 if (state == dType.DobotConnect.DobotConnect_NoError): 
-                    
-#                     #Clean Command Queued
-#                     dType.SetQueuedCmdClear(api) 
-                    
-#                     #Async Motion Params Setting
-#                     dType.SetHOMEParams(api, 250, 0, 50, 0, isQueued = 1)
-#                     dType.SetHOMECmd(api, temp = 0, isQueued = 1)
-
-#                     #Start to Execute Command Queued
-#                     dType.SetQueuedCmdStartExec(api)
-#                     dType.SetQueuedCmdStopExec(api)
-
-#             else:
-                    
-#                 #Disconnect Dobot
-#                 dType.DisconnectDobot(api)
-
-#     finally:
-#         client.disconnect()
-
-
-    

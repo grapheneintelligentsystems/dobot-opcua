@@ -34,8 +34,12 @@ api = dType.load()
 # Subscription handler
 class SubHandler(object):
 
+      
+
     def datachange_notification(self, node, val, data):
-        print("OPCUA: New data change event", node, val)
+        displayname = node.get_display_name().Text
+        print("OPCUA: New data change event", displayname, val)
+        
 
     def event_notification(self, event):
         print("OPCUA: New event", event)
@@ -51,6 +55,11 @@ if __name__ == "__main__":
                 ua.SecurityPolicyType.NoSecurity,
                 ua.SecurityPolicyType.Basic256Sha256_SignAndEncrypt,
                 ua.SecurityPolicyType.Basic256Sha256_Sign])
+
+    server.load_certificate("my_cert.der")
+    server.load_certificate("my_cert.pem")
+    server.load_private_key("my_private_key.pem")
+
 
     # set up namespace
     uri = "http://examples.freeopcua.github.io"

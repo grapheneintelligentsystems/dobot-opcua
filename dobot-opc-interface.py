@@ -28,18 +28,38 @@ CON_STR = {
 
 api = dType.load()
 
+connectionState = None
+
 
 ############### Set up OPCUA server #############################
 
 # Subscription handler
 class SubHandler(object):
 
-      
+    def __init__(self):
+        self._connectionState = connectionState
+
+    def connection(self, connect):
+
+        global connectionState
+        
+        if connect == True:
+            connectionState = dType.ConnectDobot(api, "", 115200)[0]
+            print("Dobot connection status:", CON_STR[connectionState])
+        else: 
+            dType.DisconnectDobot(api)
+            connectionState = None
+            print("Disconnected from Dobot")
+
 
     def datachange_notification(self, node, val, data):
+
         displayname = node.get_display_name().Text
         print("OPCUA: New data change event", displayname, val)
-        
+
+        if displayname == "Connect":
+            self.connection(val)
+
 
     def event_notification(self, event):
         print("OPCUA: New event", event)
@@ -83,6 +103,7 @@ if __name__ == "__main__":
         handleHome = sub.subscribe_data_change(homeCommand)
         handleConnect = sub.subscribe_data_change(connnectCommand)
 
+        # Test value change server side
         connectCopy = connnectCommand.get_value()
         connectCopy = copy.copy(connectCopy)
         connectCopy = True

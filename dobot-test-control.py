@@ -13,6 +13,9 @@ api = dType.load()
 state = dType.ConnectDobot(api, "", 115200)[0]
 print("Connect status:", CON_STR[state])
 
+dType.DisconnectDobot(api)
+print("Connect status:", CON_STR[state])
+
 if (state == dType.DobotConnect.DobotConnect_NoError):
 
     #Clean Command Queued
@@ -56,4 +59,4 @@ if (state == dType.DobotConnect.DobotConnect_NoError):
     dType.SetQueuedCmdStopExec(api)
 
 #Disconnect Dobot
-# dType.DisconnectDobot(api)
+dType.DisconnectDobot(api)

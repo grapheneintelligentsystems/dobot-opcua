@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<UANodeSet xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NamespaceUris />
+  <Aliases>
+    <Alias Alias="Boolean">i=1</Alias>
+    <Alias Alias="Organizes">i=35</Alias>
+    <Alias Alias="HasTypeDefinition">i=40</Alias>
+    <Alias Alias="HasComponent">i=47</Alias>
+  </Aliases>
+  <UAObject BrowseName="0:CommandList" NodeId="i=20001" ParentNodeId="i=85">
+    <DisplayName>CommandList</DisplayName>
+    <Description>The base type for all object nodes.</Description>
+    <References>
+      <Reference IsForward="false" ReferenceType="Organizes">i=85</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=58</Reference>
+      <Reference ReferenceType="HasComponent">i=20002</Reference>
+      <Reference ReferenceType="HasComponent">i=20003</Reference>
+    </References>
+  </UAObject>
+  <UAVariable BrowseName="0:Connect" DataType="Boolean" NodeId="i=20002" ParentNodeId="i=20001">
+    <DisplayName>Connect</DisplayName>
+    <Description>Connect</Description>
+    <References>
+      <Reference IsForward="false" ReferenceType="HasComponent">i=20001</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
+    </References>
+    <Value>
+      <uax:Boolean>false</uax:Boolean>
+    </Value>
+  </UAVariable>
+  <UAVariable BrowseName="0:Home" DataType="Boolean" NodeId="i=20003" ParentNodeId="i=20001">
+    <DisplayName>Home</DisplayName>
+    <Description>Home</Description>
+    <References>
+      <Reference IsForward="false" ReferenceType="HasComponent">i=20001</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
+    </References>
+    <Value>
+      <uax:Boolean>false</uax:Boolean>
+    </Value>
+  </UAVariable>
+</UANodeSet>

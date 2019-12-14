@@ -13,8 +13,8 @@ api = dType.load()
 state = dType.ConnectDobot(api, "", 115200)[0]
 print("Connect status:", CON_STR[state])
 
-dType.DisconnectDobot(api)
-print("Connect status:", CON_STR[state])
+# dType.DisconnectDobot(api)
+# print("Connect status:", CON_STR[state])
 
 if (state == dType.DobotConnect.DobotConnect_NoError):
 
@@ -35,7 +35,7 @@ if (state == dType.DobotConnect.DobotConnect_NoError):
             offset = 50
         else:
             offset = -50
-        lastIndex = dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, 200 + offset, offset, offset, offset, isQueued = 1)[0]
+        # lastIndex = dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, 200 + offset, offset, offset, offset, isQueued = 1)[0]
 
 
     #  This  EMotor
@@ -49,14 +49,14 @@ if (state == dType.DobotConnect.DobotConnect_NoError):
 
 
     #Start to Execute Command Queued
-    dType.SetQueuedCmdStartExec(api)
+    # dType.SetQueuedCmdStartExec(api)
 
-    #Wait for Executing Last Command
-    while lastIndex > dType.GetQueuedCmdCurrentIndex(api)[0]:
-        dType.dSleep(100)
+    # #Wait for Executing Last Command
+    # while lastIndex > dType.GetQueuedCmdCurrentIndex(api)[0]:
+    #     dType.dSleep(100)
 
-    #Stop to Execute Command Queued
-    dType.SetQueuedCmdStopExec(api)
+    # #Stop to Execute Command Queued
+    # dType.SetQueuedCmdStopExec(api)
 
 #Disconnect Dobot
 dType.DisconnectDobot(api)

@@ -457,11 +457,11 @@ DobotCommunicate = enum(
 
 def load():
     if platform.system() == "Windows":
-        return CDLL("DobotDll.dll",  RTLD_GLOBAL) 
+         return CDLL("./DobotDll/Windows/x64/DobotDll.dll", RTLD_GLOBAL) 
     elif platform.system() == "Darwin" :
-        return CDLL("libDobotDll.dylib",  RTLD_GLOBAL)
+        return CDLL("./DobotDll/Mac/DobotDll/libDobotDll.dylib", RTLD_GLOBAL)
     else:
-        return cdll.LoadLibrary("./DobotDll/libDobotDll.so")
+        return cdll.LoadLibrary("./DobotDll/Linux/DobotDll/libDobotDll.so")
     
 def dSleep(ms):
     time.sleep(ms / 1000)

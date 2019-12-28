@@ -129,7 +129,7 @@ class SubHandler(object):
 
 if __name__ == "__main__":
 
-    client = Client("opc.tcp://192.168.111.1:4840/admin")
+    client = Client("opc.tcp://laptop:4840/") # change server address here
     # client = Client("opc.tcp://admin@localhost:4840/freeopcua/server/") #connect using a user
     try:
         client.connect()
@@ -162,8 +162,6 @@ if __name__ == "__main__":
         handleConnect = sub.subscribe_data_change(Connect)    
 
         # handle = sub.subscribe_events(obj, myevent)
-        # handleHome = sub.subscribe_data_change(homeCommand)
-        # handleConnect = sub.subscribe_data_change(connectCommand)
 
         embed()
         # sub.unsubscribe(handleHome)

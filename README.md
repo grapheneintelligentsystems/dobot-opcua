@@ -79,6 +79,13 @@ If connected the robot should move accordingly to the simulation.
   conda activate dobot
   ```
 #### Run the Dobot client: 
+In the 'livepolling-client.py' modified the server address according to the Twincat runtime address: 
+
+```
+client = Client("opc.tcp://laptop:4840/") # change server address here
+```
+Then start the client: 
+
 ```
 python livepolling-client.py
 ```
